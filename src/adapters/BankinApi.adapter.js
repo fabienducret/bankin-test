@@ -32,7 +32,6 @@ export class BankinApiAdapter {
       );
       refreshToken = apiResponse?.data?.refresh_token;
     } catch (error) {
-      console.log(error);
       throw new Error(`Error on /login service : ${error}`);
     }
 
@@ -41,7 +40,6 @@ export class BankinApiAdapter {
 
   async getToken(refreshToken) {
     let accessToken = '';
-    //const refreshToken = await this.login();
 
     const params = new URLSearchParams();
     params.append('grant_type', 'refresh_token');
@@ -56,7 +54,6 @@ export class BankinApiAdapter {
 
       accessToken = apiResponse?.data?.access_token;
     } catch (error) {
-      console.log(error);
       throw new Error(`Error on /token service : ${error}`);
     }
 
@@ -65,7 +62,6 @@ export class BankinApiAdapter {
 
   async getAccounts(bearerToken) {
     let accounts = [];
-    //const bearerToken = await this.getToken();
 
     try {
       const apiResponse = await axios.get(`${this.baseUrl}/accounts`, {
@@ -77,7 +73,6 @@ export class BankinApiAdapter {
 
       accounts = apiResponse?.data?.account;
     } catch (error) {
-      console.log(error);
       throw new Error(`Error on /accounts service : ${error}`);
     }
 
@@ -86,7 +81,6 @@ export class BankinApiAdapter {
 
   async getTransactions(accountNumber, bearerToken) {
     let transactions = [];
-    //const bearerToken = await this.getToken();
 
     try {
       const apiResponse = await axios.get(
@@ -100,7 +94,7 @@ export class BankinApiAdapter {
       );
 
       if (apiResponse?.data?.transactions) {
-        transactions = apiResponse?.data?.transactions.map((transaction) => {
+        transactions = apiResponse.data.transactions.map((transaction) => {
           return {
             label: transaction.label,
             amount: transaction.amount,
@@ -109,7 +103,6 @@ export class BankinApiAdapter {
         });
       }
     } catch (error) {
-      console.log(error);
       throw new Error(`Error on /transactions service : ${error}`);
     }
 

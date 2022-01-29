@@ -19,8 +19,6 @@ export class BankinApiService {
         this.bearerToken
       );
 
-      // console.log(acc_number);
-
       return {
         acc_number,
         amount,
@@ -35,7 +33,6 @@ export class BankinApiService {
 
     const transactionsPromised =
       await this.parseAccountsAndGetTransactionsPromised(accounts);
-
     const accountsAndTransactions = await Promise.all(transactionsPromised);
 
     return accountsAndTransactions;
