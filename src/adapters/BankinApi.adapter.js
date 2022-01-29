@@ -1,10 +1,12 @@
 import axios from 'axios';
+import lodash from 'lodash';
 import { encodeBase64 } from '../utils/BankinApi.utils.js';
 
 export class BankinApiAdapter {
   constructor({ config }) {
     this.config = config;
     this.baseUrl = this.config.bankin_api_url;
+    this.bearerToken = '';
   }
 
   async login() {
@@ -38,9 +40,13 @@ export class BankinApiAdapter {
     return refreshToken;
   }
 
-  async getToken(refreshToken) {
-    let accessToken = '';
+  async getToken() {
+    if (!lodash.isEmpty(this.bearerToken)) {
+      return this.bearerToken;
+    }
 
+    let accessToken = '';
+    const refreshToken = await this.login();
     const params = new URLSearchParams();
     params.append('grant_type', 'refresh_token');
     params.append('refresh_token', refreshToken);
@@ -57,11 +63,13 @@ export class BankinApiAdapter {
       throw new Error(`Error on /token service : ${error}`);
     }
 
+    this.bearerToken = accessToken;
     return accessToken;
   }
 
-  async getAccounts(bearerToken) {
+  async getAccounts() {
     let accounts = [];
+    const bearerToken = await this.getToken();
 
     try {
       const apiResponse = await axios.get(`${this.baseUrl}/accounts`, {
@@ -87,8 +95,9 @@ export class BankinApiAdapter {
     return accounts;
   }
 
-  async getTransactions(accountNumber, bearerToken) {
+  async getTransactions(accountNumber) {
     let transactions = [];
+    const bearerToken = await this.getToken();
 
     try {
       const apiResponse = await axios.get(

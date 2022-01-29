@@ -3,32 +3,25 @@ export class BankinApiService {
     this.bankinApiAdapter = bankinApiAdapter;
   }
 
-  async generateBearer() {
-    const login = await this.bankinApiAdapter.login();
-    this.bearerToken = await this.bankinApiAdapter.getToken(login);
-  }
-
   async getAccounts() {
-    return await this.bankinApiAdapter.getAccounts(this.bearerToken);
+    return await this.bankinApiAdapter.getAccounts();
   }
 
   async parseAccountsAndGetTransactionsPromised(accounts) {
-    return accounts.map(async ({ acc_number, amount }) => {
+    return accounts.map(async (account) => {
       const transactions = await this.bankinApiAdapter.getTransactions(
-        acc_number,
-        this.bearerToken
+        account.acc_number
       );
 
       return {
-        acc_number,
-        amount,
+        acc_number: account.acc_number,
+        amount: account.amount,
         transactions,
       };
     });
   }
 
   async getAccountsAndTransactions() {
-    await this.generateBearer();
     const accounts = await this.getAccounts();
 
     const transactionsPromised =
