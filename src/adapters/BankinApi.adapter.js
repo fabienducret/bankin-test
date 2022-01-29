@@ -71,7 +71,15 @@ export class BankinApiAdapter {
         },
       });
 
-      accounts = apiResponse?.data?.account;
+      if (apiResponse?.data?.account) {
+        accounts = apiResponse.data.account.map((account) => {
+          return {
+            acc_number: account.acc_number,
+            amount: account.amount,
+            currency: account.currency,
+          };
+        });
+      }
     } catch (error) {
       throw new Error(`Error on /accounts service : ${error}`);
     }
