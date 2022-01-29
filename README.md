@@ -12,3 +12,5 @@ Use `npm run dev` to start the app with nodemon.
 Use `npm test` to run the tests.
 
 ## Roadmap
+
+Add more unit tests.
