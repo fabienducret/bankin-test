@@ -1,0 +1,38 @@
+{
+  "name": "bankin-test",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "mocha test/**/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabienducret/bankin-test.git"
+  },
+  "author": "Fabien Ducret",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fabienducret/bankin-test/issues"
+  },
+  "homepage": "https://github.com/fabienducret/bankin-test#readme",
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "eslint": "^8.7.0",
+    "eslint-config-prettier": "^8.3.0",
+    "mocha": "^9.2.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1"
+  },
+  "dependencies": {
+    "awilix": "^6.0.0",
+    "axios": "^0.25.0",
+    "dotenv": "^14.3.2"
+  }
+}
