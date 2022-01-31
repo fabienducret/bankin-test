@@ -1,6 +1,9 @@
+import { Account } from 'types/Account';
+import { Transaction } from 'types/Transaction';
+
 export interface IBankinApiAdapter {
   login(): Promise<string>;
   getToken(): Promise<string>;
-  getAccounts(): Promise<Array<object>>;
-  getTransactions(accountNumber: string): Promise<Array<object>>;
+  getAccounts(): Promise<Account[]>;
+  getTransactions(accountNumber: string): Promise<Transaction[]>;
 }

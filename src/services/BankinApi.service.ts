@@ -1,4 +1,5 @@
 import { IBankinApiAdapter } from '../interfaces/BankinApiAdapter.interface';
+import { Account } from 'types/Account';
 
 export class BankinApiService {
   private bankinApiAdapter: IBankinApiAdapter;
@@ -7,24 +8,22 @@ export class BankinApiService {
     this.bankinApiAdapter = bankinApiAdapter;
   }
 
-  async getAccounts(): Promise<Array<object>> {
+  async getAccounts(): Promise<Array<Account>> {
     return await this.bankinApiAdapter.getAccounts();
   }
 
-  async parseAccountsAndGetTransactionsPromised(accounts: Array<object>) {
-    return accounts.map(
-      async (account: { acc_number: string; amount: string }) => {
-        const transactions = await this.bankinApiAdapter.getTransactions(
-          account.acc_number
-        );
+  async parseAccountsAndGetTransactionsPromised(accounts: Array<Account>) {
+    return accounts.map(async (account) => {
+      const transactions = await this.bankinApiAdapter.getTransactions(
+        account.acc_number
+      );
 
-        return {
-          acc_number: account.acc_number,
-          amount: account.amount,
-          transactions,
-        };
-      }
-    );
+      return {
+        acc_number: account.acc_number,
+        amount: account.amount,
+        transactions,
+      };
+    });
   }
 
   async getAccountsAndTransactions() {

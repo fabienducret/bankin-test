@@ -3,6 +3,8 @@ import { isEmpty } from 'lodash';
 import { encodeBase64 } from '../utils/BankinApi.utils';
 import { IBankinApiAdapter } from '../interfaces/BankinApiAdapter.interface';
 import { Config } from '../types/config';
+import { Account } from 'types/Account';
+import { Transaction } from 'types/Transaction';
 
 export class BankinApiAdapter implements IBankinApiAdapter {
   private config: Config;
@@ -73,7 +75,7 @@ export class BankinApiAdapter implements IBankinApiAdapter {
     return accessToken;
   }
 
-  async getAccounts(): Promise<Array<object>> {
+  async getAccounts(): Promise<Account[]> {
     let accounts = [];
     const bearerToken = await this.getToken();
 
@@ -86,7 +88,7 @@ export class BankinApiAdapter implements IBankinApiAdapter {
       });
 
       if (apiResponse?.data?.account) {
-        accounts = apiResponse.data.account.map((account) => {
+        accounts = apiResponse.data.account.map((account: Account) => {
           return {
             acc_number: account.acc_number,
             amount: account.amount,
@@ -101,7 +103,7 @@ export class BankinApiAdapter implements IBankinApiAdapter {
     return accounts;
   }
 
-  async getTransactions(accountNumber: string): Promise<Array<object>> {
+  async getTransactions(accountNumber: string): Promise<Transaction[]> {
     let transactions = [];
     const bearerToken = await this.getToken();
 
@@ -117,13 +119,15 @@ export class BankinApiAdapter implements IBankinApiAdapter {
       );
 
       if (apiResponse?.data?.transactions) {
-        transactions = apiResponse.data.transactions.map((transaction) => {
-          return {
-            label: transaction.label,
-            amount: transaction.amount,
-            currency: transaction.currency,
-          };
-        });
+        transactions = apiResponse.data.transactions.map(
+          (transaction: Transaction) => {
+            return {
+              label: transaction.label,
+              amount: transaction.amount,
+              currency: transaction.currency,
+            };
+          }
+        );
       }
     } catch (error) {
       throw new Error(`Error on /transactions service : ${error}`);
