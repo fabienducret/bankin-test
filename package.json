@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "start": "tsc && node ./dist/src/index.js",
+    "start": "node ./dist/src/index.js",
     "clean": "rm -rf ./dist",
     "build": "npm run clean && tsc",
     "dev": "npm run build && concurrently \"tsc -w\" \"nodemon --watch dist ./dist/src/index.js\"",
