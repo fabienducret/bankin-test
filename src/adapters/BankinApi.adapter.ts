@@ -1,8 +1,14 @@
 import axios from 'axios';
-import lodash from 'lodash';
-import { encodeBase64 } from '../utils/BankinApi.utils.js';
+import { isEmpty } from 'lodash';
+import { encodeBase64 } from '../utils/BankinApi.utils';
+import { IBankinApiAdapter } from '../interfaces/BankinApi.interface';
+import { Config } from '../types/config';
 
-export class BankinApiAdapter {
+export class BankinApiAdapter implements IBankinApiAdapter {
+  private config: Config;
+  private baseUrl: string;
+  private bearerToken: string;
+
   constructor({ config }) {
     this.config = config;
     this.baseUrl = this.config.bankin_api_url;
@@ -41,7 +47,7 @@ export class BankinApiAdapter {
   }
 
   async getToken() {
-    if (!lodash.isEmpty(this.bearerToken)) {
+    if (!isEmpty(this.bearerToken)) {
       return this.bearerToken;
     }
 

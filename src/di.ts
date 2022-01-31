@@ -1,20 +1,20 @@
-import awilix from 'awilix';
+import { createContainer, asClass, asValue } from 'awilix';
 import { BankinApiService } from './services/BankinApi.service.js';
 import { BankinApiAdapter } from './adapters/BankinApi.adapter.js';
 import { config } from './config/config.js';
 
-export const injectDependencies = (overridedDependencies) => {
-  const container = awilix.createContainer();
+export const injectDependencies = (overridedDependencies?: object) => {
+  const container = createContainer();
   const dependencies = getDependencies(overridedDependencies);
 
   return container.register({
-    config: awilix.asValue(dependencies.config),
-    bankinApiService: awilix.asClass(dependencies.bankinApiService),
-    bankinApiAdapter: awilix.asClass(dependencies.bankinApiAdapter),
+    config: asValue(dependencies.config),
+    bankinApiService: asClass(dependencies.bankinApiService),
+    bankinApiAdapter: asClass(dependencies.bankinApiAdapter),
   });
 };
 
-const getDependencies = (overridedDependencies) => {
+const getDependencies = (overridedDependencies: object) => {
   let dependencies = {
     config,
     bankinApiService: BankinApiService,

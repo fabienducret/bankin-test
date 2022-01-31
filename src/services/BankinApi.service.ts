@@ -1,4 +1,8 @@
+import { IBankinApiAdapter } from '../interfaces/BankinApi.interface';
+
 export class BankinApiService {
+  private bankinApiAdapter: IBankinApiAdapter;
+
   constructor({ bankinApiAdapter }) {
     this.bankinApiAdapter = bankinApiAdapter;
   }
