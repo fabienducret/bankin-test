@@ -47,7 +47,9 @@ export const getFakesAccounts = () => {
 };
 
 export const getFakesTransactions = (accountNumber) => {
-  return fakesTransactions.filter(
+  const accountsAndTransactions = fakesTransactions.find(
     (transaction) => transaction.accountNumber === accountNumber
-  )[0]?.transactions;
+  );
+
+  return accountsAndTransactions?.transactions || [];
 };

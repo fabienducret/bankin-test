@@ -1,13 +1,18 @@
+import { IBankinApiAdapter } from '../interfaces/BankinApiAdapter.interface';
+import { Account } from 'types/Account';
+
 export class BankinApiService {
+  private bankinApiAdapter: IBankinApiAdapter;
+
   constructor({ bankinApiAdapter }) {
     this.bankinApiAdapter = bankinApiAdapter;
   }
 
-  async getAccounts() {
+  async getAccounts(): Promise<Array<Account>> {
     return await this.bankinApiAdapter.getAccounts();
   }
 
-  async parseAccountsAndGetTransactionsPromised(accounts) {
+  async parseAccountsAndGetTransactionsPromised(accounts: Array<Account>) {
     return accounts.map(async (account) => {
       const transactions = await this.bankinApiAdapter.getTransactions(
         account.acc_number

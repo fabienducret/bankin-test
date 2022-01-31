@@ -1,4 +1,4 @@
-export const encodeBase64 = (valueToEncode) => {
+export const encodeBase64 = (valueToEncode: string) => {
   let encodedValue = '';
 
   if (valueToEncode) {

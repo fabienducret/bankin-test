@@ -1,7 +1,9 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import { config as dotconfig } from 'dotenv';
+import { Config } from '../types/Config';
 
-export const config = {
+dotconfig();
+
+export const config: Config = {
   bankin_api_url: process.env.BANKIN_API_URL,
   bankin_api_user: process.env.BANKIN_API_USER,
   bankin_api_password: process.env.BANKIN_API_PASSWORD,
