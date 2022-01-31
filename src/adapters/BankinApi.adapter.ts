@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { isEmpty } from 'lodash';
 import { encodeBase64 } from '../utils/BankinApi.utils';
-import { IBankinApiAdapter } from '../interfaces/BankinApi.interface';
+import { IBankinApiAdapter } from '../interfaces/BankinApiAdapter.interface';
 import { Config } from '../types/config';
 
 export class BankinApiAdapter implements IBankinApiAdapter {

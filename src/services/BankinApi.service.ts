@@ -1,4 +1,4 @@
-import { IBankinApiAdapter } from '../interfaces/BankinApi.interface';
+import { IBankinApiAdapter } from '../interfaces/BankinApiAdapter.interface';
 
 export class BankinApiService {
   private bankinApiAdapter: IBankinApiAdapter;
