@@ -73,7 +73,7 @@ export class BankinApiAdapter implements IBankinApiAdapter {
     return accessToken;
   }
 
-  async getAccounts() {
+  async getAccounts(): Promise<Array<object>> {
     let accounts = [];
     const bearerToken = await this.getToken();
 
@@ -101,7 +101,7 @@ export class BankinApiAdapter implements IBankinApiAdapter {
     return accounts;
   }
 
-  async getTransactions(accountNumber) {
+  async getTransactions(accountNumber: string): Promise<Array<object>> {
     let transactions = [];
     const bearerToken = await this.getToken();
 

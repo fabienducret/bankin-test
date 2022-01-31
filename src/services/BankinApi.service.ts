@@ -7,22 +7,24 @@ export class BankinApiService {
     this.bankinApiAdapter = bankinApiAdapter;
   }
 
-  async getAccounts() {
+  async getAccounts(): Promise<Array<object>> {
     return await this.bankinApiAdapter.getAccounts();
   }
 
-  async parseAccountsAndGetTransactionsPromised(accounts) {
-    return accounts.map(async (account) => {
-      const transactions = await this.bankinApiAdapter.getTransactions(
-        account.acc_number
-      );
+  async parseAccountsAndGetTransactionsPromised(accounts: Array<object>) {
+    return accounts.map(
+      async (account: { acc_number: string; amount: string }) => {
+        const transactions = await this.bankinApiAdapter.getTransactions(
+          account.acc_number
+        );
 
-      return {
-        acc_number: account.acc_number,
-        amount: account.amount,
-        transactions,
-      };
-    });
+        return {
+          acc_number: account.acc_number,
+          amount: account.amount,
+          transactions,
+        };
+      }
+    );
   }
 
   async getAccountsAndTransactions() {
