@@ -1,5 +1,5 @@
 import { config as dotconfig } from 'dotenv';
-import { Config } from '../types/Config';
+import { Config } from '@customtypes/Config';
 
 dotconfig();
 

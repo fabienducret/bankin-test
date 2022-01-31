@@ -1,5 +1,5 @@
 import { IBankinApiAdapter } from '../interfaces/BankinApiAdapter.interface';
-import { Account } from 'types/Account';
+import { Account } from '@customtypes/Account';
 
 export class BankinApiService {
   private bankinApiAdapter: IBankinApiAdapter;

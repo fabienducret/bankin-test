@@ -4,6 +4,9 @@
     "target": "es2021",
     "module": "CommonJS",
     "baseUrl": "./src",
-    "allowJs": true
+    "allowJs": true,
+    "paths": {
+      "@customtypes/*": ["types/*"]
+    }
   }
 }

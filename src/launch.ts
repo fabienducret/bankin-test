@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import { injectDependencies } from './di.js';
 
 export const launch = async () => {

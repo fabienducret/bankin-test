@@ -2,9 +2,9 @@ import axios from 'axios';
 import { isEmpty } from 'lodash';
 import { encodeBase64 } from '../utils/BankinApi.utils';
 import { IBankinApiAdapter } from '../interfaces/BankinApiAdapter.interface';
-import { Config } from '../types/config';
-import { Account } from 'types/Account';
-import { Transaction } from 'types/Transaction';
+import { Config } from '@customtypes/config';
+import { Account } from '@customtypes/Account';
+import { Transaction } from '@customtypes/Transaction';
 
 export class BankinApiAdapter implements IBankinApiAdapter {
   private config: Config;
@@ -17,7 +17,7 @@ export class BankinApiAdapter implements IBankinApiAdapter {
     this.bearerToken = '';
   }
 
-  async login() {
+  private async login() {
     let refreshToken = '';
     const user = this.config.bankin_api_user;
     const password = this.config.bankin_api_password;
@@ -48,7 +48,7 @@ export class BankinApiAdapter implements IBankinApiAdapter {
     return refreshToken;
   }
 
-  async getToken() {
+  private async getToken() {
     if (!isEmpty(this.bearerToken)) {
       return this.bearerToken;
     }
