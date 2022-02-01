@@ -1,9 +1,10 @@
 import 'module-alias/register';
+import { IBankinApiService } from 'interfaces/BankinApiService.interface';
 import { injectDependencies } from './di.js';
 
 export const launch = async () => {
   const di = injectDependencies();
-  const bankinApiService = di.resolve('bankinApiService');
+  const bankinApiService: IBankinApiService = di.resolve('bankinApiService');
 
   try {
     const accountsAndTransactions =

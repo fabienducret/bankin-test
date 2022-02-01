@@ -1,7 +1,9 @@
 import { IBankinApiAdapter } from '../interfaces/BankinApiAdapter.interface';
+import { IBankinApiService } from 'interfaces/BankinApiService.interface';
 import { Account } from '@customtypes/Account';
+import { AccountWithTransactions } from '@customtypes/AccountWithTransactions';
 
-export class BankinApiService {
+export class BankinApiService implements IBankinApiService {
   private bankinApiAdapter: IBankinApiAdapter;
 
   constructor({ bankinApiAdapter }) {
@@ -26,7 +28,7 @@ export class BankinApiService {
     });
   }
 
-  async getAccountsAndTransactions() {
+  async getAccountsAndTransactions(): Promise<AccountWithTransactions[]> {
     const accounts = await this.getAccounts();
 
     const transactionsPromised =
